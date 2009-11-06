@@ -7,7 +7,7 @@ import re, sys, os.path
 
 def main(url):
     dir = 'tmp'
-    # url = 'http://picturesofshit.com/v/2009/10-15_-_Dudescademy/'
+    # Example URL: http://picturesofshit.com/v/2009/10-15_-_Dudescademy/
     img_size_qry_string = '?g2_imageViewsIndex=1'
 
     # Go to gallery and grab links to high resolution photos
