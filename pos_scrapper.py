@@ -3,10 +3,9 @@
 from urllib import urlretrieve
 from urllib2 import urlopen, urlparse
 from BeautifulSoup import BeautifulSoup
-import re, sys, os.path
+import re, sys, os
 
 def main(url):
-    dir = 'tmp'
     # Example URL: http://picturesofshit.com/v/2009/10-15_-_Dudescademy/
     img_size_qry_string = '?g2_imageViewsIndex=1'
 
@@ -15,9 +14,12 @@ def main(url):
     soup = BeautifulSoup(gallery.read())
     links = [tag.attrMap['href'] + img_size_qry_string for tag in soup.findAll(href=re.compile('JPG.html'))]
 
+    # Create download directory based on url
+    dir = re.search('_([a-zA-Z0-9]+)/$', url).groups()[0]
+    if not os.path.exists(dir): os.makedirs(dir)
+
     # Go to each link, grab the image source, and download
     links = [urlparse.urljoin(url, link) for link in links]
-
     for link in links:
         gallery_image = urlopen(link)
         soup = BeautifulSoup(gallery_image.read())
