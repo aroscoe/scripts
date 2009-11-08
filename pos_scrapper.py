@@ -15,7 +15,7 @@ def main(url):
     links = [tag.attrMap['href'] + img_size_qry_string for tag in soup.findAll(href=re.compile('JPG.html'))]
 
     # Create download directory based on url
-    dir = re.search('_([a-zA-Z0-9]+)/$', url).groups()[0]
+    dir = re.search('[_+]([a-zA-Z0-9]+)/$', url).groups()[0]
     if not os.path.exists(dir): os.makedirs(dir)
 
     # Go to each link, grab the image source, and download
